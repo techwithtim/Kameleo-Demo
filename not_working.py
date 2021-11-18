@@ -61,7 +61,7 @@ driver.get('https://www.aliexpress.com/')
 # close popup
 click_element(driver, By.CLASS_NAME,"btn-close")
 
-account = find_element(driver, By.XPATH, '/html/body/div[3]/div[3]/div/div[2]/div[5]/div[3]/span/a')
+account = find_element(driver, By.XPATH, '//*[@id="nav-user-account"]')
 ActionChains(driver).move_to_element(account).perform()
 
 # click join button
