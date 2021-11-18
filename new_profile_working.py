@@ -26,8 +26,15 @@ create_profile_request = BuilderForCreateProfile \
     .build()
 profile = client.create_profile(body=create_profile_request)
 
-
 client.start_profile(profile.id)
+
+options = webdriver.ChromeOptions()
+options.add_experimental_option("kameleo:profileId", profile.id)
+driver = webdriver.Remote(
+    command_executor=f"{kameleo_base_url}/webdriver",
+    options=options
+    )
+
 
 def click_element(driver, by, selector):
     element = WebDriverWait(driver, 5).until(
@@ -79,7 +86,7 @@ try:
     # close popup
     click_element(driver, By.CLASS_NAME,"btn-close")
 
-    account = find_element(driver, By.XPATH, '/html/body/div[3]/div[3]/div/div[2]/div[5]/div[3]/span/a')
+    account = find_element(driver, By.XPATH, '//*[@id="nav-user-account"]')
     ActionChains(driver).move_to_element(account).perform()
 
     # click join button
